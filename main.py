@@ -71,8 +71,8 @@ class Comments(db.Model, Base):
     blog_id = db.Column(db.Integer, db.ForeignKey("blog_posts.id"))
     parent_post = relationship("BlogPost", back_populates="comments")
     text = db.Column(db.Text, nullable=False)
-
-db.create_all()
+#
+# db.create_all()
 login_manager = LoginManager()
 login_manager.init_app(app)
 
