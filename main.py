@@ -16,16 +16,17 @@ import os
 Base = declarative_base()
 
 app = Flask(__name__)
-if os.environ.get('SECRET_KEY')==None:
-    app.config['SECRET_KEY'] = "sqlite:///blog.db"
-else:
-    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
 ckeditor = CKEditor(app)
 Bootstrap(app)
 
 ##CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
+if os.environ.get("DATABASE_URL")==None:
+    app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///blog.db"
+else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 db = SQLAlchemy(app)
