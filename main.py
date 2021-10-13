@@ -16,7 +16,11 @@ import os
 Base = declarative_base()
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+if os.environ.get('SECRET_KEY')==None:
+    app.config['SECRET_KEY'] = "sqlite:///blog.db"
+else:
+    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+
 ckeditor = CKEditor(app)
 Bootstrap(app)
 
